@@ -37,17 +37,20 @@ def initialize_reader(backend: str = "paddleocr"):
     backend = backend.lower()
 
     if backend == "paddleocr":
-        return PaddleOCR(use_angle_cls=True, lang='en')
-
+        reader = PaddleOCR(use_angle_cls=True, lang='en')
     elif backend == "onnxruntime":
         model_path = get_onnx_model_path("handwriting_ocr.onnx")
         providers = ort.get_available_providers()
-        return ort.InferenceSession(model_path, providers=providers)
-
+        reader = ort.InferenceSession(model_path, providers=providers)
     elif backend == "torch":
-        return easyocr.Reader(["en"], gpu=False)
+        reader = easyocr.Reader(["en"], gpu=False)
+    else:
+        raise ValueError(
+            f"Unsupported backend: '{backend}'. Choose 'paddleocr', 'onnxruntime', or 'torch'."
+        )
 
-    raise ValueError(f"Unsupported backend: '{backend}'. Choose 'paddleocr', 'onnxruntime', or 'torch'.")
+    ocr_readers[backend] = reader
+    return reader
 
 
 def add_box_to_fields(fields_conf):
@@ -124,12 +127,13 @@ def read_text(image, backend="paddleocr"):
     if image.ndim not in (2, 3):
         raise ValueError(f"read_text received invalid image dimensions: {image.shape}")
 
+    backend = backend.lower()
+    reader = ocr_readers.setdefault(backend, initialize_reader(backend))
+
     if backend == "paddleocr":
-        reader = ocr_readers.get("paddleocr") or initialize_reader("paddleocr")
         return reader.ocr(image, cls=True)
 
     elif backend == "onnxruntime":
-        reader = ocr_readers.get("onnxruntime") or initialize_reader("onnxruntime")
         from modular_analyzer.image_preprocessing import preprocess_for_onnx
         img = preprocess_for_onnx(image)
 
@@ -141,7 +145,6 @@ def read_text(image, backend="paddleocr"):
         return [(None, [(None, text, 0.99)])]
 
     elif backend == "torch":
-        reader = ocr_readers.get("torch") or initialize_reader("torch")
         return reader.readtext(image)
 
     raise ValueError(f"Unsupported backend: {backend}")

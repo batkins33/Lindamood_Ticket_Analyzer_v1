@@ -3,9 +3,6 @@ import os
 
 import cv2
 import numpy as np
-from PIL import Image
-
-from modular_analyzer.constants import PROCESSED_IMAGE_OUTPUT_FOLDER
 from modular_analyzer.file_utils import find_file_case_insensitive
 from modular_analyzer.image_utils import save_crop_and_thumbnail, save_field, sanitize_box
 from modular_analyzer.ocr_utils import (
@@ -19,14 +16,6 @@ from modular_analyzer.ocr_utils import (
 from modular_analyzer.types import PageTask
 
 logger = logging.getLogger(__name__)
-
-
-def save_image(img: Image.Image, page_num: int, prefix: str):
-    os.makedirs(PROCESSED_IMAGE_OUTPUT_FOLDER, exist_ok=True)
-    image_path = os.path.join(PROCESSED_IMAGE_OUTPUT_FOLDER, f"{prefix}_page_{page_num}.png")
-    img.save(image_path)
-    logger.info(f"Saved annotated image to {image_path}")
-
 
 def simplify_field_name(field_name: str) -> str:
     return field_name.split(".")[-1]
