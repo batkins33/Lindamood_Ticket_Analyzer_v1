@@ -22,7 +22,7 @@ OCR/ICR engines to read printed text and handwriting, and includes template matc
 ```
 Ticket_Analyzer/
 ├── launch_analyzer.py           # Entry point script
-├── requirements.txt             # Python dependencies
+├── environment.yml              # Conda environment definition
 ├── README.md                    # Project documentation
 └── modular_analyzer/
     ├── main.py                  # Core orchestration logic
@@ -52,10 +52,10 @@ Ticket_Analyzer/
    conda install -c pytorch pytorch cpuonly
    ```
 
-3. **Install Python dependencies**:
+3. **Install all dependencies**:
 
    ```bash
-   pip install -r requirements.txt
+   conda env update -f environment.yml
    ```
 
 4. **Tesseract OCR** (for `pytesseract`):

@@ -18,8 +18,8 @@ cd /d "U:\Dev\projects\analyzer_projects\Lindamood_Ticket_Analyzer_v1"
 echo Checking required packages...
 python -c "import numpy, pandas" 2>NUL
 IF %ERRORLEVEL% NEQ 0 (
-    echo [ERROR] Missing required packages. Installing...
-    pip install -r requirements.txt
+    echo [ERROR] Missing required packages. Updating environment...
+    conda env update -f environment.yml
 )
 
 echo.
