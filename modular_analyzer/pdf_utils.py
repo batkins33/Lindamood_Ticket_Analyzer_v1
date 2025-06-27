@@ -31,19 +31,3 @@ def process_pages_concurrently(args_list, processor):
     return [r for r in results if r is not None]
 
 
-# === TEST HARNESS FOR KNOWN-INVALID INPUT ===
-def test_read_text_with_invalid_image():
-    import numpy as np
-    from modular_analyzer.ocr_utils import read_text, initialize_reader
-
-    reader = initialize_reader("paddleocr")
-    try:
-        result = read_text(reader, None)  # force failure
-    except ValueError as e:
-        print("✅ Caught expected ValueError:", e)
-
-    try:
-        bad_array = np.array([[]])
-        result = read_text(reader, bad_array)
-    except ValueError as e:
-        print("✅ Caught expected ValueError on bad shape:", e)
