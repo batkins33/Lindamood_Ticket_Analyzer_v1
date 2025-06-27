@@ -20,8 +20,8 @@ matplotlib==3.10.1
 tqdm==4.67.1
 
 # Deep Learning
-torch==2.1.2+cpu
-torchvision==0.16.2+cpu
+torch==2.7.1
+torchvision==0.22.1
 
 # Utility & system packages
 future==1.0.0
