@@ -103,12 +103,10 @@ def export_logs_to_html(log_file_path, output_html_path):
     import re
 
     pattern = re.compile(
-        pattern=re.compile(
-            r"(?P<datetime>\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2},\d+\])\s+"  # [YYYY-MM-DD HH:MM:SS,ms]
-            r"\[\s*(?P<level>[A-Z]+)\]\s+"  # [LEVEL]
-            r"(?P<file>[^:]+):(?P<line>\d+)\s+-\s+"  # file.py:line -
-            r"(?P<message>.+)"  # message
-        )
+        r"(?P<datetime>\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2},\d+\])\s+"
+        r"\[\s*(?P<level>[A-Z]+)\]\s+"
+        r"(?P<file>[^:]+):(?P<line>\d+)\s+-\s+"
+        r"(?P<message>.+)"
     )
     grouped = {}
     allowed_levels = {"ERROR", "WARNING"}
