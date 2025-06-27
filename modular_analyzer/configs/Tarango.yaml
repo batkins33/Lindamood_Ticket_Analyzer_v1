@@ -1,0 +1,114 @@
+ticket_format:
+  address:
+    color: '#80FFFF'
+    export_to_excel: false
+    line_width: 3
+    ocr_instruction: ''
+    position_inches:
+      - 3.6839
+      - 1.6797
+    size_inches:
+      - 2.7513
+      - 0.4339
+    box:
+      - 1100
+      - 498
+      - 1935
+      - 639
+  date:
+    color: '#FF8000'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image
+    position_inches:
+      - 1.7772
+      - 1.6658
+    size_inches:
+      - 1.7341
+      - 0.3557
+    box:
+      - 528
+      - 494
+      - 1058
+      - 611
+  logo:
+    color: '#FF0000'
+    export_to_excel: false
+    line_width: 3
+    ocr_instruction: ''
+    position_inches:
+      - 4.0499
+      - 0.2985
+    size_inches:
+      - 2.0319
+      - 1.371
+    box:
+      - 1209
+      - 84
+      - 1829
+      - 505
+  manifest_number:
+    color: '#0080FF'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image
+    position_inches:
+      - 1.7772
+      - 0.4353
+    size_inches:
+      - 1.7344
+      - 0.4409
+    box:
+      - 528
+      - 125
+      - 1058
+      - 267
+  material_type:
+    color: '#800000'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image
+    position_inches:
+      - 4.1333
+      - 3.2096
+    size_inches:
+      - 2.6356
+      - 1.3131
+    box:
+      - 1234
+      - 957
+      - 2035
+      - 1361
+  ticket_number:
+    color: '#323232'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image extract and ocr
+    position_inches:
+      - 6.115
+      - 0.0813
+    size_inches:
+      - 2.3024
+      - 1.1626
+    box:
+      - 1829
+      - 19
+      - 2530
+      - 378
+  truck_number:
+    color: '#008000'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image
+    position_inches:
+      - 1.7772
+      - 1.0795
+    size_inches:
+      - 1.7309
+      - 0.6002
+    box:
+      - 528
+      - 318
+      - 1057
+      - 508
+vendor: TARANGO

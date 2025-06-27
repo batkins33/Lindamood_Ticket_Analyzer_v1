@@ -1,0 +1,114 @@
+ticket_format:
+  address:
+    color: '#80FFFF'
+    export_to_excel: false
+    line_width: 3
+    ocr_instruction: ''
+    position_inches:
+      - 1.622
+      - 0.4342
+    size_inches:
+      - 2.6683
+      - 0.2287
+    box:
+      - 481
+      - 125
+      - 1292
+      - 203
+  date:
+    color: '#FF8000'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image
+    position_inches:
+      - 0.1905
+      - 1.3164
+    size_inches:
+      - 1.371
+      - 0.4632
+    box:
+      - 52
+      - 389
+      - 473
+      - 538
+  logo:
+    color: '#FF0000'
+    export_to_excel: false
+    line_width: 3
+    ocr_instruction: ''
+    position_inches:
+      - 1.9183
+      - 0.2159
+    size_inches:
+      - 1.9996
+      - 0.2044
+    box:
+      - 570
+      - 59
+      - 1180
+      - 131
+  manifest_number:
+    color: '#0080FF'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image
+    position_inches:
+      - 3.1884
+      - 0.863
+    size_inches:
+      - 2.5284
+      - 0.4534
+    box:
+      - 951
+      - 253
+      - 1720
+      - 399
+  material_type:
+    color: '#800000'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image
+    position_inches:
+      - 3.1884
+      - 2.0456
+    size_inches:
+      - 2.5307
+      - 0.4004
+    box:
+      - 951
+      - 608
+      - 1720
+      - 738
+  ticket_number:
+    color: '#323232'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image extract and ocr
+    position_inches:
+      - 4.3413
+      - 0.0552
+    size_inches:
+      - 1.6448
+      - 0.7574
+    box:
+      - 1297
+      - 11
+      - 1800
+      - 248
+  truck_number:
+    color: '#008000'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image
+    position_inches:
+      - 0.1412
+      - 0.1539
+    size_inches:
+      - 1.4203
+      - 0.646
+    box:
+      - 37
+      - 41
+      - 473
+      - 244
+vendor: ROADSTAR

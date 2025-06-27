@@ -1,0 +1,114 @@
+ticket_format:
+  address:
+    color: '#80FFFF'
+    export_to_excel: false
+    line_width: 3
+    ocr_instruction: ''
+    position_inches:
+      - 1.0606
+      - 0.4562
+    size_inches:
+      - 2.163
+      - 0.4839
+    box:
+      - 313
+      - 131
+      - 972
+      - 287
+  date:
+    color: '#FF8000'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image
+    position_inches:
+      - 2.7258
+      - 1.636
+    size_inches:
+      - 1.4433
+      - 0.3141
+    box:
+      - 812
+      - 485
+      - 1255
+      - 590
+  logo:
+    color: '#FF0000'
+    export_to_excel: false
+    line_width: 3
+    ocr_instruction: ''
+    position_inches:
+      - 1.0537
+      - 0.1417
+    size_inches:
+      - 2.2733
+      - 0.3076
+    box:
+      - 311
+      - 37
+      - 1003
+      - 139
+  manifest_number:
+    color: '#0080FF'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image
+    position_inches:
+      - 0.967
+      - 3.276
+    size_inches:
+      - 3.1231
+      - 0.444
+    box:
+      - 285
+      - 977
+      - 1232
+      - 1121
+  material_type:
+    color: '#800000'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image
+    position_inches:
+      - 2.8314
+      - 3.7182
+    size_inches:
+      - 1.2571
+      - 1.7153
+    box:
+      - 844
+      - 1110
+      - 1231
+      - 1635
+  ticket_number:
+    color: '#323232'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image extract and ocr
+    position_inches:
+      - 3.078
+      - 0.9579
+    size_inches:
+      - 1.1928
+      - 0.4964
+    box:
+      - 918
+      - 282
+      - 1286
+      - 441
+  truck_number:
+    color: '#008000'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image
+    position_inches:
+      - 2.0453
+      - 2.0171
+    size_inches:
+      - 1.9152
+      - 0.3511
+    box:
+      - 608
+      - 600
+      - 1193
+      - 715
+vendor: WL REID

@@ -1,0 +1,57 @@
+# Python Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# PyCharm
+.idea/
+
+# Virtual Environments
+.env
+.venv/
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Output & Generated Files
+/output/
+*.log
+*.csv
+*.xlsx
+*.pdf
+
+# Cache / Build / Test Artifacts
+.build/
+dist/
+*.egg-info/
+*.egg
+.pytest_cache/
+.tox/
+.nox/
+.coverage
+coverage.xml
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+.pyre/
+.pytype/
+cython_debug/
+
+# Model files
+*.onnx
+
+# Jupyter / Notebooks / Misc IDE stuff
+.ipynb_checkpoints
+.spyderproject
+.spyproject
+.ropeproject
+.dmypy.json
+docs/_build/
+
+# Windows
+Thumbs.db
+
+# PaddleOCR (if NOT modified)
+PaddleOCR/

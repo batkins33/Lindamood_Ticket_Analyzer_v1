@@ -1,0 +1,114 @@
+ticket_format:
+  address:
+    color: '#80FFFF'
+    export_to_excel: false
+    line_width: 3
+    ocr_instruction: ''
+    position_inches:
+      - 1.7984
+      - 1.2916
+    size_inches:
+      - 1.7972
+      - 0.1588
+    box:
+      - 534
+      - 382
+      - 1083
+      - 440
+  date:
+    color: '#FF8000'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image
+    position_inches:
+      - 0.1362
+      - 0.0332
+    size_inches:
+      - 1.5396
+      - 0.3738
+    box:
+      - 35
+      - 4
+      - 507
+      - 127
+  logo:
+    color: '#FF0000'
+    export_to_excel: false
+    line_width: 3
+    ocr_instruction: ''
+    position_inches:
+      - 1.769
+      - 0.1683
+    size_inches:
+      - 2.0689
+      - 1.0634
+    box:
+      - 525
+      - 45
+      - 1156
+      - 374
+  manifest_number:
+    color: '#0080FF'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image
+    position_inches:
+      - 5.4358
+      - 0.5722
+    size_inches:
+      - 2.0163
+      - 0.3475
+    box:
+      - 1625
+      - 166
+      - 2240
+      - 280
+  material_type:
+    color: '#800000'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image
+    position_inches:
+      - 3.7404
+      - 2.6053
+    size_inches:
+      - 2.1082
+      - 0.7127
+    box:
+      - 1117
+      - 776
+      - 1759
+      - 1000
+  ticket_number:
+    color: '#323232'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image extract and ocr
+    position_inches:
+      - 5.4358
+      - 0.0681
+    size_inches:
+      - 2.0163
+      - 0.4908
+    box:
+      - 1625
+      - 15
+      - 2240
+      - 172
+  truck_number:
+    color: '#008000'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image
+    position_inches:
+      - 0.1488
+      - 1.1056
+    size_inches:
+      - 1.527
+      - 0.4095
+    box:
+      - 39
+      - 326
+      - 507
+      - 459
+vendor: Roberts

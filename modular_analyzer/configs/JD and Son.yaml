@@ -1,0 +1,114 @@
+ticket_format:
+  address:
+    color: '#80FFFF'
+    export_to_excel: false
+    line_width: 3
+    ocr_instruction: ''
+    position_inches:
+      - 1.2482
+      - 0.2125
+    size_inches:
+      - 2.6142
+      - 0.4732
+    box:
+      - 369
+      - 58
+      - 1163
+      - 210
+  date:
+    color: '#FF8000'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image
+    position_inches:
+      - 3.8177
+      - 1.5088
+    size_inches:
+      - 1.4815
+      - 0.2417
+    box:
+      - 1140
+      - 447
+      - 1594
+      - 530
+  logo:
+    color: '#FF0000'
+    export_to_excel: false
+    line_width: 3
+    ocr_instruction: ''
+    position_inches:
+      - 0.1964
+      - 0.2286
+    size_inches:
+      - 1.016
+      - 0.9823
+    box:
+      - 53
+      - 63
+      - 368
+      - 368
+  manifest_number:
+    color: '#0080FF'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image
+    position_inches:
+      - 3.9512
+      - 0.3045
+    size_inches:
+      - 1.1434
+      - 0.2875
+    box:
+      - 1180
+      - 86
+      - 1533
+      - 182
+  material_type:
+    color: '#800000'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image
+    position_inches:
+      - 0.2042
+      - 2.7671
+    size_inches:
+      - 3.0385
+      - 0.2548
+    box:
+      - 56
+      - 825
+      - 977
+      - 911
+  ticket_number:
+    color: '#323232'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image extract and ocr
+    position_inches:
+      - 3.5918
+      - 0.8411
+    size_inches:
+      - 1.7778
+      - 0.3698
+    box:
+      - 1072
+      - 247
+      - 1615
+      - 368
+  truck_number:
+    color: '#008000'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image
+    position_inches:
+      - 2.494
+      - 1.5019
+    size_inches:
+      - 1.3237
+      - 0.2487
+    box:
+      - 743
+      - 445
+      - 1150
+      - 530
+vendor: JD AND SON

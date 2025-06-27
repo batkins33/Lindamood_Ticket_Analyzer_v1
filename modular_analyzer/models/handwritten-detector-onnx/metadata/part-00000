@@ -1,0 +1,1 @@
+{"class":"com.johnsnowlabs.ocr.transformers.ImageHandwrittenDetector","timestamp":1624933881598,"sparkVersion":"2.4.7","uid":"IMAGE_HANDWRITTEN_DETECTOR_fa45d874bc4a","paramMap":{"inputCol":"image","outputCol":"signature_regions"},"defaultParamMap":{"inputCol":"image","scoreThreshold":0.5,"outputLabels":["0"],"labels":["signature", "others"],"outputCol":"signature_regions"}}

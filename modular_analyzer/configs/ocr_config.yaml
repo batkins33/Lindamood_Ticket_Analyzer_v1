@@ -1,0 +1,3 @@
+ocr_backend: easyocr
+gpu: false
+language: en

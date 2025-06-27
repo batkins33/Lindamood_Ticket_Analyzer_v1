@@ -1,0 +1,114 @@
+ticket_format:
+  address:
+    color: '#80FFFF'
+    export_to_excel: false
+    line_width: 3
+    ocr_instruction: ''
+    position_inches:
+      - 1.951
+      - 0.7144
+    size_inches:
+      - 1.1754
+      - 0.8534
+    box:
+      - 580
+      - 209
+      - 942
+      - 475
+  date:
+    color: '#FF8000'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image
+    position_inches:
+      - 3.1195
+      - 1.0214
+    size_inches:
+      - 2.001
+      - 0.2635
+    box:
+      - 930
+      - 301
+      - 1541
+      - 390
+  logo:
+    color: '#FF0000'
+    export_to_excel: false
+    line_width: 3
+    ocr_instruction: ''
+    position_inches:
+      - 0.3777
+      - 0.7144
+    size_inches:
+      - 1.5664
+      - 0.8477
+    box:
+      - 108
+      - 209
+      - 588
+      - 473
+  manifest_number:
+    color: '#0080FF'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image
+    position_inches:
+      - 3.1264
+      - 1.2919
+    size_inches:
+      - 1.994
+      - 0.2898
+    box:
+      - 932
+      - 382
+      - 1541
+      - 479
+  material_type:
+    color: '#800000'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image
+    position_inches:
+      - 0.3669
+      - 2.394
+    size_inches:
+      - 2.0083
+      - 0.4311
+    box:
+      - 105
+      - 713
+      - 717
+      - 852
+  ticket_number:
+    color: '#323232'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image extract and ocr
+    position_inches:
+      - 3.5203
+      - 0.7305
+    size_inches:
+      - 1.6002
+      - 0.2767
+    box:
+      - 1051
+      - 214
+      - 1541
+      - 307
+  truck_number:
+    color: '#008000'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image
+    position_inches:
+      - 4.0981
+      - 2.953
+    size_inches:
+      - 1.0153
+      - 0.3138
+    box:
+      - 1224
+      - 880
+      - 1539
+      - 985
+vendor: RCI

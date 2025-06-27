@@ -1,0 +1,114 @@
+ticket_format:
+  address:
+    color: '#80FFFF'
+    export_to_excel: false
+    line_width: 3
+    ocr_instruction: ''
+    position_inches:
+      - 3.8487
+      - 0.0628
+    size_inches:
+      - 2.6762
+      - 0.5296
+    box:
+      - 1149
+      - 13
+      - 1962
+      - 182
+  date:
+    color: '#FF8000'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image
+    position_inches:
+      - 5.1318
+      - 0.9091
+    size_inches:
+      - 1.4692
+      - 0.2682
+    box:
+      - 1534
+      - 267
+      - 1985
+      - 358
+  logo:
+    color: '#FF0000'
+    export_to_excel: false
+    line_width: 3
+    ocr_instruction: ''
+    position_inches:
+      - 2.0894
+      - 0.1501
+    size_inches:
+      - 1.7027
+      - 0.6886
+    box:
+      - 621
+      - 40
+      - 1142
+      - 256
+  manifest_number:
+    color: '#0080FF'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image
+    position_inches:
+      - 0.2321
+      - 0.2483
+    size_inches:
+      - 1.7251
+      - 0.3441
+    box:
+      - 64
+      - 69
+      - 592
+      - 182
+  material_type:
+    color: '#800000'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image
+    position_inches:
+      - 0.2113
+      - 2.352
+    size_inches:
+      - 2.7295
+      - 0.3166
+    box:
+      - 58
+      - 700
+      - 887
+      - 805
+  ticket_number:
+    color: '#323232'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image extract and ocr
+    position_inches:
+      - 4.9646
+      - 0.5924
+    size_inches:
+      - 1.6364
+      - 0.2907
+    box:
+      - 1484
+      - 172
+      - 1985
+      - 269
+  truck_number:
+    color: '#008000'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image
+    position_inches:
+      - 3.4062
+      - 0.8832
+    size_inches:
+      - 1.5536
+      - 0.2575
+    box:
+      - 1016
+      - 259
+      - 1492
+      - 347
+vendor: CORPOTECHS

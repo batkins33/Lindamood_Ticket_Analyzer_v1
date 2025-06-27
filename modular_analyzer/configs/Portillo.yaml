@@ -1,0 +1,114 @@
+ticket_format:
+  address:
+    color: '#80FFFF'
+    export_to_excel: false
+    line_width: 3
+    ocr_instruction: ''
+    position_inches:
+      - 4.5072
+      - 0.4776
+    size_inches:
+      - 1.7903
+      - 0.3709
+    box:
+      - 1347
+      - 138
+      - 1894
+      - 259
+  date:
+    color: '#FF8000'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image
+    position_inches:
+      - 4.8857
+      - 0.8415
+    size_inches:
+      - 1.4118
+      - 0.2592
+    box:
+      - 1460
+      - 247
+      - 1894
+      - 335
+  logo:
+    color: '#FF0000'
+    export_to_excel: false
+    line_width: 3
+    ocr_instruction: ''
+    position_inches:
+      - 2.3101
+      - 0.0852
+    size_inches:
+      - 1.7449
+      - 0.7887
+    box:
+      - 688
+      - 20
+      - 1221
+      - 267
+  manifest_number:
+    color: '#0080FF'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image
+    position_inches:
+      - 0.2323
+      - 0.1707
+    size_inches:
+      - 1.6328
+      - 0.322
+    box:
+      - 64
+      - 46
+      - 564
+      - 152
+  material_type:
+    color: '#800000'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image
+    position_inches:
+      - 0.186
+      - 2.3838
+    size_inches:
+      - 2.7278
+      - 0.2475
+    box:
+      - 50
+      - 710
+      - 879
+      - 794
+  ticket_number:
+    color: '#323232'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image extract and ocr
+    position_inches:
+      - 5.0353
+      - 0.0315
+    size_inches:
+      - 1.3062
+      - 0.4391
+    box:
+      - 1505
+      - 4
+      - 1907
+      - 146
+  truck_number:
+    color: '#008000'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image
+    position_inches:
+      - 3.2299
+      - 0.9002
+    size_inches:
+      - 1.5852
+      - 0.2005
+    box:
+      - 963
+      - 265
+      - 1449
+      - 335
+vendor: PORTILLO

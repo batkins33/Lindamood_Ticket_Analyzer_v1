@@ -1,0 +1,130 @@
+ticket_format:
+  address:
+    color: '#80FFFF'
+    export_to_excel: false
+    line_width: 3
+    ocr_instruction: ''
+    position_inches:
+      - 0.0634
+      - 0.6089
+    size_inches:
+      - 1.7903
+      - 0.1855
+    box:
+      - 14
+      - 177
+      - 561
+      - 243
+  date:
+    color: '#FF8000'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image
+    position_inches:
+      - 2.2593
+      - 0.7807
+    size_inches:
+      - 2.5132
+      - 0.2963
+    box:
+      - 672
+      - 229
+      - 1436
+      - 328
+  load_chart:
+    color: '#400080'
+    export_to_excel: false
+    line_width: 3
+    ocr_instruction: extract table,  count marks
+    position_inches:
+      - 0.9168
+      - 3.7422
+    size_inches:
+      - 2.6704
+      - 0.2661
+    box:
+      - 270
+      - 1117
+      - 1081
+      - 1207
+  logo:
+    color: '#FF0000'
+    export_to_excel: false
+    line_width: 3
+    ocr_instruction: ''
+    position_inches:
+      - 0.0565
+      - 0.1105
+    size_inches:
+      - 2.101
+      - 0.5054
+    box:
+      - 11
+      - 28
+      - 652
+      - 189
+  manifest_number:
+    color: '#0080FF'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image
+    position_inches:
+      - 2.7568
+      - 1.7166
+    size_inches:
+      - 1.9886
+      - 0.2867
+    box:
+      - 822
+      - 509
+      - 1428
+      - 605
+  material_type:
+    color: '#800000'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image
+    position_inches:
+      - 2.2593
+      - 1.3783
+    size_inches:
+      - 2.5202
+      - 0.2619
+    box:
+      - 672
+      - 408
+      - 1438
+      - 497
+  ticket_number:
+    color: '#323232'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image extract and ocr
+    position_inches:
+      - 3.8963
+      - 0.4742
+    size_inches:
+      - 1.1042
+      - 0.3034
+    box:
+      - 1163
+      - 137
+      - 1505
+      - 238
+  truck_number:
+    color: '#008000'
+    export_to_excel: true
+    line_width: 3
+    ocr_instruction: image
+    position_inches:
+      - 2.406
+      - 3.1004
+    size_inches:
+      - 2.3196
+      - 0.3011
+    box:
+      - 716
+      - 925
+      - 1422
+      - 1025
+vendor: LINDAMOOD
