@@ -20,6 +20,15 @@ See [`environment.yml`](environment.yml) or the Windows variant
 [`analyzer_env.yaml`](analyzer_env.yaml) for the full list of required packages
 and environment setup instructions.
 
+## Features
+The analyzer provides:
+
+- PDF to image conversion using `pdf2image`
+- Printed-text OCR via PaddleOCR (or EasyOCR if configured)
+- ONNX-based handwriting recognition
+- Optional template matching for ticket numbers
+- Concurrent processing of pages using Python's multiprocessing
+
 ## Usage
 1. Create and activate the Conda environment:
    ```bash
@@ -32,3 +41,26 @@ and environment setup instructions.
    python launch_analyzer.py
    ```
    Output files will be written under the `output/` directory.
+
+## Environment check
+Before running the analyzer you can verify all dependencies are installed:
+
+```bash
+python test_env_integrity.py
+```
+Any missing modules will be listed in `env_check.log` when using
+`new_launch.bat` on Windows.
+
+## Running tests
+Unit tests live under the `tests/` directory and can be executed with:
+
+```bash
+pytest
+```
+
+## Additional documentation
+A more in-depth guide is provided in
+[docs/DETAILED_README.md](docs/DETAILED_README.md).
+
+## License
+This project is released under the [MIT License](LICENSE).
