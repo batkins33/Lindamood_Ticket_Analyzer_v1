@@ -12,4 +12,3 @@ class PageTask:
     output_dir: str
     vendor: str
     date: str
-    issues_log: Any  # can be List or None

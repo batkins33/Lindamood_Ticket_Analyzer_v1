@@ -42,7 +42,6 @@ def process_page(task: PageTask):
 
     entry = {"Page": page_num}
     ticket_issue = ""
-    issue_log = []
     thumbnail_log = []
 
     logging.info(f"📄 Processing page {page_num}")
@@ -117,132 +116,47 @@ def process_page(task: PageTask):
             continue
 
         try:
-            if detect_handwriting(region) or is_handwriting_deep(region):
+            is_handwritten = detect_handwriting(region) or is_handwriting_deep(region)
+            text_value = None
+
+            if is_handwritten:
                 from modular_analyzer.image_preprocessing import preprocess_for_onnx, decode_onnx_output
 
-                # Validate region_array before preprocessing
-                if not isinstance(region_array, np.ndarray):
-                    logging.error(
-                        f"❌ Invalid region_array type for {field_name} on page {page_num}: "
-                        f"{type(region_array)}"
-                    )
-                    entry[field_name] = "INVALID_REGION_ARRAY"
-                    continue
-                if region_array.ndim not in (2, 3):
-                    logging.error(
-                        f"❌ region_array has invalid ndim={region_array.ndim} "
-                        f"for {field_name} on page {page_num}"
-                    )
-                    entry[field_name] = "INVALID_DIMS"
-                    continue
-                if region_array.size == 0:
-                    logging.error(f"❌ Empty region_array for {field_name} on page {page_num}")
-                    entry[field_name] = "EMPTY_REGION_ARRAY"
-                    continue
-
-                if region_array.ndim == 2 or region_array.shape[2] != 3:
-                    region_array = cv2.cvtColor(region_array, cv2.COLOR_GRAY2BGR)
+                region_for_onnx = region_array
+                if region_for_onnx.ndim == 2 or region_for_onnx.shape[2] != 3:
+                    region_for_onnx = cv2.cvtColor(region_for_onnx, cv2.COLOR_GRAY2BGR)
                     logging.warning(f"⚠️ Converted grayscale to BGR for {field_name} on page {page_num}")
 
                 try:
-                    preprocessed = preprocess_for_onnx(region_array)
+                    preprocessed = preprocess_for_onnx(region_for_onnx)
                     preds = reader_hand.run(None, {reader_hand.get_inputs()[0].name: preprocessed})[0]
                     decoded = decode_onnx_output(preds)
                     if decoded:
-                        entry[field_name] = decoded
+                        text_value = decoded
                         logging.info(f"✍️ Handwritten field '{field_name}': {decoded}")
                     else:
-                        entry[field_name] = "HANDWRITING_UNREADABLE"
                         logging.warning(f"⚠️ Handwriting OCR unreadable for: {field_name}")
                 except Exception as e:
-                    entry[field_name] = "HANDWRITING_ERROR"
                     logging.error(f"❌ ONNX handwriting OCR failed for {field_name} on page {page_num}: {e}")
 
-                save_field(region, crops_dir, f"{short_name}_{page_num}")
-                save_crop_and_thumbnail(region, crops_dir, f"{short_name}_{page_num}", thumbnails_dir, thumbnail_log)
-
-            else:
-                entry[field_name] = "SKIPPED_NONHANDWRITING"
-                logging.debug(f"Field '{field_name}' did not appear handwritten — skipped.")
-            if detect_handwriting(region) or is_handwriting_deep(region):
+            if text_value is None:
                 try:
-                    if not isinstance(region_array, np.ndarray) or region_array.ndim != 3:
-                        raise ValueError(f"Invalid image shape: {getattr(region_array, 'shape', None)}")
-
-                    if region_array.shape[2] != 3:
-                        region_array = cv2.cvtColor(region_array, cv2.COLOR_GRAY2BGR)
-                        logging.warning(f"⚠️ Converted grayscale to BGR for {field_name} on page {page_num}")
-
-                    from modular_analyzer.image_preprocessing import preprocess_for_onnx, decode_onnx_output
-
-                    # Validate region_array before preprocessing
-                    if region_array is None or not isinstance(region_array, np.ndarray):
-                        logging.error(
-                            f"❌ Invalid region_array for {field_name} on page {page_num}: {type(region_array)}")
-                        entry[field_name] = "INVALID_REGION_ARRAY"
-                        continue
-                    if region_array.size == 0:
-                        logging.error(f"❌ Empty region_array for {field_name} on page {page_num}")
-                        entry[field_name] = "EMPTY_REGION_ARRAY"
-                        continue
-
-                    preprocessed = preprocess_for_onnx(region_array)
-                    preds = reader_hand.run(None, {reader_hand.get_inputs()[0].name: preprocessed})[0]
-                    decoded = decode_onnx_output(preds)
-
-                    if decoded:
-                        entry[field_name] = decoded
-                        logging.info(f"✍️ Handwritten field '{field_name}': {decoded}")
+                    region_bgr = cv2.cvtColor(region_array, cv2.COLOR_RGB2BGR) if region_array.ndim == 3 else cv2.cvtColor(region_array, cv2.COLOR_GRAY2BGR)
+                    texts = read_text(region_bgr, backend="paddleocr")
+                    if texts:
+                        text_value = texts[0][1]
+                        logging.info(f"📝 Printed field '{field_name}': {text_value}")
                     else:
-                        entry[field_name] = "HANDWRITING_UNREADABLE"
-                        logging.warning(f"⚠️ Handwriting OCR unreadable for: {field_name}")
-
+                        text_value = "TEXT_NOT_FOUND"
+                        logging.warning(f"⚠️ Printed OCR failed for: {field_name}")
                 except Exception as e:
-                    entry[field_name] = "HANDWRITING_ERROR"
-                    logging.error(f"❌ Exception while processing handwriting for {field_name} on page {page_num}: {e}")
+                    text_value = "OCR_ERROR"
+                    logging.error(f"❌ Printed OCR failed for {field_name} on page {page_num}: {e}")
 
+            entry[field_name] = text_value
+            if is_handwritten:
                 save_field(region, crops_dir, f"{short_name}_{page_num}")
-                save_crop_and_thumbnail(region, crops_dir, f"{short_name}_{page_num}", thumbnails_dir, thumbnail_log)
-
-            logging.debug(f"🧪 Calling preprocess_for_onnx on shape={region_array.shape}, dtype={region_array.dtype}")
-            try:
-                if not isinstance(region_array, np.ndarray) or region_array.ndim != 3:
-                    raise ValueError(f"Invalid image shape: {getattr(region_array, 'shape', None)}")
-
-                if region_array.shape[2] != 3:
-                    region_array = cv2.cvtColor(region_array, cv2.COLOR_GRAY2BGR)
-                    logging.warning(f"⚠️ Converted grayscale to BGR for {field_name} on page {page_num}")
-
-                from modular_analyzer.image_preprocessing import preprocess_for_onnx, decode_onnx_output
-
-                logging.debug(
-                    f"🧪 Calling preprocess_for_onnx on shape={region_array.shape}, dtype={region_array.dtype}")
-
-                preprocessed = preprocess_for_onnx(region_array)
-                preds = reader_hand.run(None, {reader_hand.get_inputs()[0].name: preprocessed})[0]
-                decoded = decode_onnx_output(preds)
-
-                if decoded:
-                    entry[field_name] = decoded
-                    logging.info(f"✍️ Handwritten field '{field_name}': {decoded}")
-                else:
-                    entry[field_name] = "HANDWRITING_UNREADABLE"
-                    logging.warning(f"⚠️ Handwriting OCR unreadable for: {field_name}")
-
-            except Exception as e:
-                entry[field_name] = "HANDWRITING_ERROR"
-                logging.error(f"❌ Exception while processing handwriting for {field_name} on page {page_num}: {e}")
-
-            else:
-                texts = read_text(region_array, backend="paddleocr")
-                if texts:
-                    entry[field_name] = texts[0][1]
-                    logging.info(f"📝 Printed field '{field_name}': {texts[0][1]}")
-                else:
-                    entry[field_name] = "TEXT_NOT_FOUND"
-                    logging.warning(f"⚠️ Printed OCR failed for: {field_name}")
-
-                save_crop_and_thumbnail(region, crops_dir, f"{short_name}_{page_num}", thumbnails_dir, thumbnail_log)
+            save_crop_and_thumbnail(region, crops_dir, f"{short_name}_{page_num}", thumbnails_dir, thumbnail_log)
 
         except Exception as e:
             entry[field_name] = "GENERAL_ERROR"
@@ -254,7 +168,6 @@ def process_page(task: PageTask):
     return {
         "entry": entry,
         "ticket_issue": ticket_issue,
-        "issues": issue_log,
         "thumbnails": thumbnail_log,
         "timing": {"Page": page_num, "DurationSeconds": duration},
     }

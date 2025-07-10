@@ -115,8 +115,7 @@ def main():
             fields=flat_fields,
             output_dir=output_dir,
             vendor=vendor_match,
-            date="20250101",
-            issues_log=None
+            date="20250101"
         )
         for idx, img in enumerate(images)
     ]
@@ -124,15 +123,12 @@ def main():
 
     entries = [r["entry"] for r in results]
     ticket_issues = [(r["entry"].get("Page"), r["ticket_issue"]) for r in results if r["ticket_issue"]]
-    issue_logs = [issue for r in results for issue in r["issues"]]
     thumbnails = [thumb for r in results for thumb in r["thumbnails"]]
     timings = [r["timing"] for r in results]
 
     save_entries_to_excel(entries, output_dir, structured_name)
     save_csv(ticket_issues, columns=["Page", "Issue"],
              filepath=os.path.join(output_dir, "ticket_issues.csv"))
-    save_csv(issue_logs, columns=["Page", "IssueType", "FieldName"],
-             filepath=os.path.join(output_dir, "issues_log.csv"))
     save_csv(thumbnails, columns=["Page", "Field", "ThumbnailPath"],
              filepath=os.path.join(output_dir, "thumbnail_index.csv"))
     save_csv(timings, columns=["Page", "DurationSeconds"],
