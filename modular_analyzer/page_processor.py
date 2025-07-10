@@ -44,6 +44,13 @@ def process_page(task: PageTask):
     ticket_issue = ""
     thumbnail_log = []
 
+    def log_issue(issue_type: str, field: str):
+        issue_log.append({
+            "Page": page_num,
+            "IssueType": issue_type,
+            "FieldName": field,
+        })
+
     logging.info(f"📄 Processing page {page_num}")
     start_time = time.time()
 
@@ -52,30 +59,36 @@ def process_page(task: PageTask):
 
         if "box" not in field_conf:
             logging.warning(f"⚠️ Field '{field_name}' missing 'box', skipping.")
+            log_issue("MISSING_BOX", field_name)
             continue
 
         box = sanitize_box(field_conf["box"], *img.size)
         if box is None:
             logging.error(f"❌ Invalid sanitized box for {field_name} on page {page_num}: {field_conf['box']}")
             entry[field_name] = "BOX_INVALID"
+            log_issue("BOX_INVALID", field_name)
             continue
 
         region = img.crop(box)
         if region is None:
             logging.error(f"❌ Cropped region is None for {field_name} on page {page_num}")
             entry[field_name] = "REGION_NONE"
+            log_issue("REGION_NONE", field_name)
             continue
 
         region_array = ensure_region_array(region, field_name, page_num, entry)
         if region_array is None:
+            log_issue("REGION_ARRAY_NONE", field_name)
             continue
         if not isinstance(region_array, np.ndarray):
             logging.error(f"❌ region_array is not ndarray for {field_name} on page {page_num}")
             entry[field_name] = "INVALID_ARRAY_TYPE"
+            log_issue("INVALID_ARRAY_TYPE", field_name)
             continue
         if region_array.size == 0:
             logging.error(f"❌ region_array is empty for {field_name} on page {page_num}")
             entry[field_name] = "EMPTY_ARRAY"
+            log_issue("EMPTY_ARRAY", field_name)
             continue
 
         if "ticket_number" in field_name:
@@ -107,10 +120,12 @@ def process_page(task: PageTask):
                         entry[field_name] = "MISSING"
                         ticket_issue = "MISSING"
                         logging.error(f"❌ Ticket number not found by OCR or template match on page {page_num}")
+                        log_issue("TICKET_MISSING", field_name)
                 else:
                     entry[field_name] = "MISSING"
                     ticket_issue = "MISSING"
                     logging.error("🛑 Template file 'ticket_template.jpg' not found.")
+                    log_issue("TEMPLATE_NOT_FOUND", field_name)
 
             save_crop_and_thumbnail(region, crops_dir, f"{short_name}_{page_num}", thumbnails_dir, thumbnail_log)
             continue
@@ -136,8 +151,10 @@ def process_page(task: PageTask):
                         logging.info(f"✍️ Handwritten field '{field_name}': {decoded}")
                     else:
                         logging.warning(f"⚠️ Handwriting OCR unreadable for: {field_name}")
+                        log_issue("HANDWRITING_UNREADABLE", field_name)
                 except Exception as e:
                     logging.error(f"❌ ONNX handwriting OCR failed for {field_name} on page {page_num}: {e}")
+                    log_issue("HANDWRITING_ERROR", field_name)
 
             if text_value is None:
                 try:
@@ -152,15 +169,61 @@ def process_page(task: PageTask):
                 except Exception as e:
                     text_value = "OCR_ERROR"
                     logging.error(f"❌ Printed OCR failed for {field_name} on page {page_num}: {e}")
+                    entry[field_name] = "HANDWRITING_ERROR"
+                    logging.error(f"❌ Exception while processing handwriting for {field_name} on page {page_num}: {e}")
+                    log_issue("HANDWRITING_ERROR", field_name)
 
             entry[field_name] = text_value
             if is_handwritten:
                 save_field(region, crops_dir, f"{short_name}_{page_num}")
             save_crop_and_thumbnail(region, crops_dir, f"{short_name}_{page_num}", thumbnails_dir, thumbnail_log)
+            logging.debug(f"🧪 Calling preprocess_for_onnx on shape={region_array.shape}, dtype={region_array.dtype}")
+            try:
+                if not isinstance(region_array, np.ndarray) or region_array.ndim != 3:
+                    raise ValueError(f"Invalid image shape: {getattr(region_array, 'shape', None)}")
+
+                if region_array.shape[2] != 3:
+                    region_array = cv2.cvtColor(region_array, cv2.COLOR_GRAY2BGR)
+                    logging.warning(f"⚠️ Converted grayscale to BGR for {field_name} on page {page_num}")
+
+                from modular_analyzer.image_preprocessing import preprocess_for_onnx, decode_onnx_output
+
+                logging.debug(
+                    f"🧪 Calling preprocess_for_onnx on shape={region_array.shape}, dtype={region_array.dtype}")
+
+                preprocessed = preprocess_for_onnx(region_array)
+                preds = reader_hand.run(None, {reader_hand.get_inputs()[0].name: preprocessed})[0]
+                decoded = decode_onnx_output(preds)
+
+                if decoded:
+                    entry[field_name] = decoded
+                    logging.info(f"✍️ Handwritten field '{field_name}': {decoded}")
+                else:
+                    entry[field_name] = "HANDWRITING_UNREADABLE"
+                    logging.warning(f"⚠️ Handwriting OCR unreadable for: {field_name}")
+                    log_issue("HANDWRITING_UNREADABLE", field_name)
+
+            except Exception as e:
+                entry[field_name] = "HANDWRITING_ERROR"
+                logging.error(f"❌ Exception while processing handwriting for {field_name} on page {page_num}: {e}")
+                log_issue("HANDWRITING_ERROR", field_name)
+
+            else:
+                texts = read_text(region_array, backend="paddleocr")
+                if texts:
+                    entry[field_name] = texts[0][1]
+                    logging.info(f"📝 Printed field '{field_name}': {texts[0][1]}")
+                else:
+                    entry[field_name] = "TEXT_NOT_FOUND"
+                    logging.warning(f"⚠️ Printed OCR failed for: {field_name}")
+                    log_issue("TEXT_NOT_FOUND", field_name)
+
+                save_crop_and_thumbnail(region, crops_dir, f"{short_name}_{page_num}", thumbnails_dir, thumbnail_log)
 
         except Exception as e:
             entry[field_name] = "GENERAL_ERROR"
             logging.exception(f"❌ Exception while processing field {field_name} on page {page_num}: {e}")
+            log_issue("GENERAL_ERROR", field_name)
 
     duration = round(time.time() - start_time, 2)
     logging.info(f"✅ Finished page {page_num} in {duration}s")

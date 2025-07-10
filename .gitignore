@@ -55,3 +55,7 @@ Thumbs.db
 
 # PaddleOCR (if NOT modified)
 PaddleOCR/
+
+# Pip installation logs
+/pip
+/[0-9]*.[0-9]*.[0-9]*
