@@ -5,9 +5,10 @@ import cv2
 import easyocr
 import numpy as np
 import onnxruntime as ort
-from PIL import Image
-from PIL import ImageDraw
+from PIL import Image, ImageDraw
 from paddleocr import PaddleOCR
+from doctr.models import ocr_predictor
+from doctr.io import DocumentFile
 
 from modular_analyzer.image_utils import inches_to_pixels, sanitize_box
 
@@ -26,17 +27,20 @@ def get_onnx_model_path(model_name: str = "handwriting_ocr.onnx") -> str:
     return path
 
 
-def initialize_reader(backend: str = "paddleocr"):
+def initialize_reader(backend: str = "doctr"):
     """
     Initialize an OCR/ICR reader based on the specified backend.
     Supported backends:
+      - "doctr": printed/text via DocTR
       - "paddleocr": printed/text via PaddleOCR
       - "onnxruntime": handwriting ICR via ONNXRuntime (>=1.9)
       - "torch": EasyOCR via PyTorch
     """
     backend = backend.lower()
 
-    if backend == "paddleocr":
+    if backend == "doctr":
+        reader = ocr_predictor(pretrained=True)
+    elif backend == "paddleocr":
         reader = PaddleOCR(use_angle_cls=True, lang='en')
     elif backend == "onnxruntime":
         model_path = get_onnx_model_path("handwriting_ocr.onnx")
@@ -46,7 +50,7 @@ def initialize_reader(backend: str = "paddleocr"):
         reader = easyocr.Reader(["en"], gpu=False)
     else:
         raise ValueError(
-            f"Unsupported backend: '{backend}'. Choose 'paddleocr', 'onnxruntime', or 'torch'."
+            f"Unsupported backend: '{backend}'. Choose 'doctr', 'paddleocr', 'onnxruntime', or 'torch'."
         )
 
     ocr_readers[backend] = reader
@@ -119,7 +123,7 @@ def ensure_region_array(region, field_name, page_num, entry):
         return None
 
 
-def read_text(image, backend="paddleocr"):
+def read_text(image, backend="doctr"):
     if image is None:
         raise ValueError("read_text received None image array")
     if not isinstance(image, np.ndarray):
@@ -130,7 +134,19 @@ def read_text(image, backend="paddleocr"):
     backend = backend.lower()
     reader = ocr_readers.setdefault(backend, initialize_reader(backend))
 
-    if backend == "paddleocr":
+    if backend == "doctr":
+        doc = DocumentFile.from_images([Image.fromarray(image)])
+        result = reader(doc)
+        text = " ".join(
+            word["value"]
+            for page in result.export()["pages"]
+            for block in page["blocks"]
+            for line in block["lines"]
+            for word in line["words"]
+        )
+        return [(None, [(None, text, 1.0)])]
+
+    elif backend == "paddleocr":
         return reader.ocr(image, cls=True)
 
     elif backend == "onnxruntime":
@@ -147,7 +163,9 @@ def read_text(image, backend="paddleocr"):
     elif backend == "torch":
         return reader.readtext(image)
 
-    raise ValueError(f"Unsupported backend: {backend}")
+    raise ValueError(
+        f"Unsupported backend: {backend}. Choose 'doctr', 'paddleocr', 'onnxruntime', or 'torch'."
+    )
 
 
 def detect_handwriting(img):
@@ -195,10 +213,10 @@ def template_match(img_region, template_path, threshold=0.7):
     return (max_val >= threshold), max_loc
 
 
-def extract_text_fields(img: Image.Image, reader, backend: str = "paddleocr") -> list:
+def extract_text_fields(img: Image.Image, reader, backend: str = "doctr") -> list:
     """
     Extract text fields from an image using OCR.
     Returns a list of tuples with (bbox, text, confidence).
     """
     region_array = np.array(img.convert("RGB"))
-    return read_text(reader, region_array, backend=backend)
+    return read_text(region_array, backend=backend)

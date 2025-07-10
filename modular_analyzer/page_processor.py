@@ -29,7 +29,7 @@ def process_page(task: PageTask):
     fields = task.fields
     output_dir = task.output_dir
 
-    reader_std = initialize_reader("paddleocr")
+    reader_std = initialize_reader("doctr")
     reader_hand = initialize_reader("onnxruntime")
 
     page_num = page_idx + 1
@@ -92,7 +92,7 @@ def process_page(task: PageTask):
                 entry[field_name] = "BGR_INVALID"
                 continue
 
-            texts = read_text(region_bgr, backend="paddleocr")
+            texts = read_text(region_bgr, backend="doctr")
             if texts:
                 entry[field_name] = texts[0][1]
                 logging.info(f"✅ Found ticket number: {texts[0][1]} on page {page_num}")
@@ -234,7 +234,7 @@ def process_page(task: PageTask):
                 logging.error(f"❌ Exception while processing handwriting for {field_name} on page {page_num}: {e}")
 
             else:
-                texts = read_text(region_array, backend="paddleocr")
+                texts = read_text(region_array, backend="doctr")
                 if texts:
                     entry[field_name] = texts[0][1]
                     logging.info(f"📝 Printed field '{field_name}': {texts[0][1]}")

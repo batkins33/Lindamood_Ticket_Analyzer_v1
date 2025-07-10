@@ -10,7 +10,7 @@ echo Activating Conda environment...
 echo =============================================
 
 REM Update this line if your Conda install path is different
-CALL "C:\Users\brian.atkins\anaconda3\Scripts\activate.bat" analyzer_env
+CALL "C:\Users\brian.atkins\anaconda3\Scripts\activate.bat" doctr_env
 
 REM Change to the project directory
 cd /d "U:\Dev\projects\analyzer_projects\Lindamood_Ticket_Analyzer_v1"
@@ -19,7 +19,7 @@ echo Checking required packages...
 python -c "import numpy, pandas" 2>NUL
 IF %ERRORLEVEL% NEQ 0 (
     echo [ERROR] Missing required packages. Updating environment...
-    conda env update -f environment.yml
+    conda env update -f docs/doctr_env.yaml
 )
 
 echo.

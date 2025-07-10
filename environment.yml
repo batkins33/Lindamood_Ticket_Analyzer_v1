@@ -1,4 +1,4 @@
-name: analyzer_env
+name: doctr_env
 channels:
   - defaults
   - conda-forge
@@ -14,6 +14,7 @@ dependencies:
       - pytesseract==0.3.13
       - easyocr==1.7.2
       - onnxruntime==1.22.0
+      - python-doctr==0.8.1
       - numpy==1.24.4
       - pillow==11.2.1
       - pandas==1.5.3

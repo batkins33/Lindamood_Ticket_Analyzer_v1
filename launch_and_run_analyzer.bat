@@ -6,10 +6,10 @@ echo Activating Conda environment...
 echo =============================================
 
 REM Full path to your Conda activate script
-call U:\Dev\envs\analyzer_env\Scripts\activate.bat
+call U:\Dev\envs\doctr_env\Scripts\activate.bat
 
 REM Optional: limit PATH to avoid DLL conflict
-set PATH=U:\Dev\envs\analyzer_env\Library\bin;U:\Dev\envs\analyzer_env\Scripts;C:\Windows\System32;C:\Windows
+set PATH=U:\Dev\envs\doctr_env\Library\bin;U:\Dev\envs\doctr_env\Scripts;C:\Windows\System32;C:\Windows
 
 REM Change directory to the project root
 cd /d U:\Dev\projects\analyzer_projects\Lindamood_Ticket_Analyzer_v1

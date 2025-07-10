@@ -1,8 +1,8 @@
 @echo off
 setlocal
 
-echo [🔧] Activating environment: analyzer_env
-call conda activate analyzer_env
+echo [🔧] Activating environment: doctr_env
+call conda activate doctr_env
 
 echo [🔍] Checking environment integrity...
 python test_env_integrity.py > env_check.log

@@ -3,11 +3,13 @@
 
 This repository contains a PDF ticket analysis tool built around
 `modular_analyzer`. It converts PDF pages to images and extracts fields such
-as ticket numbers using a combination of PaddleOCR, Tesseract and ONNX-based
-handwriting models. Results are saved to CSV/Excel for further review.
+as ticket numbers using a combination of **DocTR** for printed text,
+Tesseract and optional ONNX‑based handwriting models. Results are saved to
+CSV/Excel for further review.
 
 ## Main dependencies
 - Python 3.10
+- DocTR for OCR
 - PaddleOCR / PaddlePaddle
 - OpenCV
 - PyMuPDF & pdf2image
@@ -16,24 +18,28 @@ handwriting models. Results are saved to CSV/Excel for further review.
 - ONNX Runtime
 - pandas, numpy, scikit-learn
 
-See [`environment.yml`](environment.yml) or the Windows variant
-[`analyzer_env.yaml`](analyzer_env.yaml) for the full list of required packages
-and environment setup instructions.
+See [`docs/doctr_env.yaml`](docs/doctr_env.yaml) for the Conda environment
+definition. Windows users can also use [`analyzer_env.yaml`](analyzer_env.yaml)
+for a preconfigured setup. Both create an environment named `doctr_env`.
 
 ## Features
 The analyzer provides:
 
 - PDF to image conversion using `pdf2image`
-- Printed-text OCR via PaddleOCR (or EasyOCR if configured)
+- Printed-text OCR via DocTR
 - ONNX-based handwriting recognition
 - Optional template matching for ticket numbers
 - Concurrent processing of pages using Python's multiprocessing
 
+DocTR is the default OCR engine. `modular_analyzer/ocr_utils.py` also
+supports PaddleOCR, EasyOCR and ONNX Runtime. You can switch engines by
+calling `initialize_reader("paddleocr")` or passing `backend` to `read_text`.
+
 ## Usage
 1. Create and activate the Conda environment:
    ```bash
-   conda env create -f environment.yml
-   conda activate analyzer_env
+   conda env create -f docs/doctr_env.yaml
+   conda activate doctr_env
    ```
    (On Windows you can use `analyzer_env.yaml`.)
 2. Run the analyzer and choose a PDF when prompted:

@@ -9,6 +9,7 @@ modules_to_test = [
     "onnxruntime",  # For running ONNX models
     "easyocr",  # Another OCR engine
     "pytesseract",  # Wrapper for Tesseract OCR
+    "doctr",  # DocTR OCR engine
     "numpy",  # Numerical computation
     "torch", "torchvision",  # PyTorch and vision utilities
     "pandas",  # Tabular data manipulation

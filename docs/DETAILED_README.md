@@ -8,7 +8,7 @@ OCR/ICR engines to read printed text and handwriting, and includes template matc
 ## Features
 
 * **PDF to Image Conversion**: Converts each page of a PDF into PIL images.
-* **Printed Text OCR**: Uses PaddleOCR or EasyOCR (via PyTorch) for high-accuracy printed-text recognition.
+* **Printed Text OCR**: Uses DocTR for recognition (previously PaddleOCR/EasyOCR).
 * **Handwriting Recognition (ICR)**: Integrates an ONNXRuntime-based model for handwriting extraction.
 * **Handwriting Detection**: Heuristic and deep-learning based methods to detect handwritten regions.
 * **Template Matching**: Locates known form elements using OpenCV template matching.
@@ -23,6 +23,7 @@ OCR/ICR engines to read printed text and handwriting, and includes template matc
 Ticket_Analyzer/
 ├── launch_analyzer.py           # Entry point script
 ├── environment.yml              # Conda environment definition
+├── docs/doctr_env.yaml          # Conda environment definition
 ├── README.md                    # Project documentation
 └── modular_analyzer/
     ├── main.py                  # Core orchestration logic
@@ -42,8 +43,8 @@ Ticket_Analyzer/
 1. **Set up a Conda environment** (recommended on Windows):
 
    ```bash
-   conda create -n ocr_env python=3.10 pip
-   conda activate ocr_env
+   conda create -n doctr_env python=3.10 pip
+   conda activate doctr_env
    ```
 
 2. **Install core frameworks via Conda**:
@@ -55,7 +56,7 @@ Ticket_Analyzer/
 3. **Install all dependencies**:
 
    ```bash
-   conda env update -f environment.yml
+   conda env update -f docs/doctr_env.yaml
    ```
 
 4. **Tesseract OCR** (for `pytesseract`):
@@ -70,10 +71,18 @@ Ticket_Analyzer/
 
     * `handwriting_ocr.onnx`
     * `handwriting_classifier.onnx`
+  These files are **not included** in the repository and must be supplied
+  separately. `is_handwriting_deep()` will fail to load if the classifier
+  file is missing.
 
 * Vendor XML mappings live in `modular_analyzer/xml/`. Add or update files for new vendors.
 
 * Adjust `launch_analyzer.py` arguments or modify `main.py` defaults as needed (e.g., output directory, logging).
+
+The OCR backend defaults to DocTR. The helper function
+`initialize_reader()` accepts `"doctr"`, `"paddleocr"`, `"onnxruntime"`, or
+`"torch"` to select a different engine. `page_processor.py` calls this
+function and can be edited if you need another default.
 
 ---
 
@@ -82,7 +91,7 @@ Ticket_Analyzer/
 1. **Activate environment**:
 
    ```bash
-   conda activate ocr_env
+   conda activate doctr_env
    ```
 
 2. **Run the analyzer**:
