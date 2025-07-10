@@ -43,13 +43,8 @@ The analyzer provides:
    Output files will be written under the `output/` directory.
 
 ## Environment check
-Before running the analyzer you can verify all dependencies are installed:
-
-```bash
-python test_env_integrity.py
-```
-Any missing modules will be listed in `env_check.log` when using
-`new_launch.bat` on Windows.
+The test suite includes a simple import check for optional dependencies. You
+can run it with `pytest -k env_integrity` to see which modules are available.
 
 ## Running tests
 Unit tests live under the `tests/` directory and can be executed with:
