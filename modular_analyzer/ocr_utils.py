@@ -205,4 +205,4 @@ def extract_text_fields(img: Image.Image, reader, backend: str = "doctr") -> lis
     Returns a list of tuples with (bbox, text, confidence).
     """
     region_array = np.array(img.convert("RGB"))
-    return read_text(reader, region_array, backend=backend)
+    return read_text(region_array, backend=backend)
