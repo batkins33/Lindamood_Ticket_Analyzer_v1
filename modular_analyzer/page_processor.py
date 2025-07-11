@@ -13,7 +13,8 @@ from modular_analyzer.ocr_utils import (
     detect_handwriting,
     is_handwriting_deep,
     template_match,
-    ensure_region_array
+    ensure_region_array,
+    correct_image_orientation
 )
 from modular_analyzer.types import PageTask
 
@@ -21,6 +22,7 @@ from modular_analyzer.types import PageTask
 CONFIG_PATH = os.path.join(os.path.dirname(__file__), "configs", "ocr_config.yaml")
 OCR_CONFIG = load_yaml(CONFIG_PATH) if os.path.exists(CONFIG_PATH) else {}
 USE_ONNX_FALLBACK = OCR_CONFIG.get("use_onnx_fallback", True)
+ORIENTATION_METHOD = OCR_CONFIG.get("orientation_check", "tesseract")
 
 logger = logging.getLogger(__name__)
 
@@ -40,6 +42,7 @@ def process_page(task: PageTask):
     reader_hand = initialize_reader("onnxruntime") if USE_ONNX_FALLBACK else None
 
     page_num = page_idx + 1
+    img = correct_image_orientation(img, page_num=page_num, method=ORIENTATION_METHOD)
     crops_dir = os.path.join(output_dir, "crops")
     thumbnails_dir = os.path.join(output_dir, "thumbnails")
     logs_dir = os.path.join(output_dir, "logs")

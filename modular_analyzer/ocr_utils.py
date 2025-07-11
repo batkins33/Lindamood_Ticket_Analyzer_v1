@@ -8,10 +8,38 @@ from PIL import Image
 from PIL import ImageDraw
 from doctr.io import DocumentFile
 from doctr.models import ocr_predictor
+import pytesseract
+import re
 
 from modular_analyzer.image_utils import inches_to_pixels, sanitize_box
 
 ocr_readers = {}
+
+
+def correct_image_orientation(pil_img, page_num=None, method="tesseract"):
+    """Rotate a PIL image based on the chosen orientation method."""
+    if method == "none":
+        return pil_img
+
+    try:
+        if method == "doctr":
+            if not hasattr(correct_image_orientation, "angle_model"):
+                from doctr.models import angle_predictor
+                correct_image_orientation.angle_model = angle_predictor(pretrained=True)
+            angle = correct_image_orientation.angle_model([pil_img])[0]
+            rotation = int(round(angle / 90.0)) * 90 % 360
+        else:  # tesseract
+            osd = pytesseract.image_to_osd(pil_img)
+            rotation_match = re.search(r"Rotate: (\d+)", osd)
+            rotation = int(rotation_match.group(1)) if rotation_match else 0
+
+        logging.info(f"Page {page_num}: rotation = {rotation} degrees")
+        if rotation in {90, 180, 270}:
+            return pil_img.rotate(-rotation, expand=True)
+    except Exception as e:
+        logging.warning(f"Orientation error (page {page_num}): {e}")
+
+    return pil_img
 
 
 def get_onnx_model_path(model_name: str = "handwriting_ocr.onnx") -> str:

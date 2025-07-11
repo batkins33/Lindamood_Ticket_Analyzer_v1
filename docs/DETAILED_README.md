@@ -13,6 +13,7 @@ OCR/ICR engines to read printed text and handwriting, and includes template matc
 * **Handwriting Detection**: Heuristic and deep-learning based methods to detect handwritten regions.
 * **Template Matching**: Locates known form elements using OpenCV template matching.
 * **Concurrent Processing**: Leverages Python’s `multiprocessing` for fast, parallel page processing.
+* **Orientation Correction**: Automatically rotates pages using Tesseract or Doctr.
 * **Vendor Configuration**: Built-in support for multiple ticket vendors with custom XML mappings.
 
 ---
@@ -74,6 +75,7 @@ Ticket_Analyzer/
 * Vendor XML mappings live in `modular_analyzer/xml/`. Add or update files for new vendors.
 
 * Adjust `launch_analyzer.py` arguments or modify `main.py` defaults as needed (e.g., output directory, logging).
+* Set `orientation_check` in `configs/ocr_config.yaml` to `tesseract`, `doctr`, or `none`.
 
 ---
 
