@@ -106,7 +106,7 @@ Ticket_Analyzer/
 * **ONNX Runtime errors**:
 
     * Ensure ONNX models exist in the `models/` directory.
-    * If you see a `providers` error, verify you’re using `onnxruntime>=1.9` and the code
+    * If you see a `providers` error, verify you’re using `onnxruntime>=1.19.2` and the code
       passes `providers=["CPUExecutionProvider"]`.
 
 * **NumPy compatibility**:
