@@ -127,6 +127,7 @@ def main():
     timings = [r["timing"] for r in results]
 
     save_entries_to_excel(entries, output_dir, structured_name)
+    csv_path = os.path.join(output_dir, f"{structured_name}_ticket_numbers.csv")
     save_csv(ticket_issues, columns=["Page", "Issue"],
              filepath=os.path.join(output_dir, "ticket_issues.csv"))
     save_csv(thumbnails, columns=["Page", "Field", "ThumbnailPath"],
@@ -135,7 +136,7 @@ def main():
              filepath=os.path.join(output_dir, "process_analysis.csv"))
 
     collect_summary_report(output_dir, entries)
-    color_code_excel(output_dir)
+    color_code_excel(csv_path)
     zip_folder(os.path.join(output_dir, "valid"), os.path.join(output_dir, "valid_pages.zip"))
 
     logging.info("Processing complete. Output saved.")

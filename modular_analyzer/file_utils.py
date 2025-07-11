@@ -31,11 +31,11 @@ def save_csv(data, columns, filepath):
         writer.writerows(data)
 
 
-def color_code_excel(output_dir):
+def color_code_excel(csv_path):
+    """Convert a CSV of ticket numbers to an Excel file with highlights."""
     try:
-        filepath = os.path.join(output_dir, "ticket_numbers.csv")
-        df = pd.read_csv(filepath)
-        xlsx_path = filepath.replace(".csv", ".xlsx")
+        df = pd.read_csv(csv_path)
+        xlsx_path = csv_path.replace(".csv", ".xlsx")
         df.to_excel(xlsx_path, index=False)
 
         wb = load_workbook(xlsx_path)
