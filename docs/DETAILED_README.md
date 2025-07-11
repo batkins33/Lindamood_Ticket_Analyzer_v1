@@ -43,7 +43,7 @@ Ticket_Analyzer/
 1. **Set up a Conda environment** (recommended on Windows):
 
    ```bash
-   conda create -n ocr_env python=3.10 pip
+   conda create -n ocr_env python=3.9 pip
    conda activate ocr_env
    ```
 
