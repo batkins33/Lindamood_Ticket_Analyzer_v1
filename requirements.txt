@@ -13,7 +13,7 @@ onnxruntime==1.19.2
 numpy==1.24.4
 pillow==11.2.1
 pandas==1.5.3
-scikit-learn==1.7.0
+scikit-learn==1.6.1
 scikit-image==0.25.2
 matplotlib==3.10.1
 tqdm==4.67.1

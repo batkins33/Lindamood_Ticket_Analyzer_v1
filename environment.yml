@@ -15,6 +15,7 @@ dependencies:
       - pytesseract==0.3.13
       - numpy==2.0.2
       - pandas==2.3.0
+      - scikit-learn==1.6.1
       - pillow==11.2.1
       - scikit-image==0.24.0
       - torch==2.7.1
