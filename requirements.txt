@@ -15,7 +15,7 @@ pillow==11.2.1
 pandas==1.5.3
 scikit-learn==1.6.1
 scikit-image==0.24.0
-matplotlib==3.10.1
+matplotlib==3.8.2
 tqdm==4.67.1
 
 # Deep Learning
