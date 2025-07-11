@@ -10,12 +10,12 @@ def convert_pdf_to_images(pdf_path):
     :param pdf_path: Path to the PDF file.
     :return: List of PIL Image objects, one per page.
     """
-    doc = fitz.open(pdf_path)
     images = []
-    for page in doc:
-        pix = page.get_pixmap()
-        img = Image.frombytes("RGB", (pix.width, pix.height), pix.samples)
-        images.append(img)
+    with fitz.open(pdf_path) as doc:
+        for page in doc:
+            pix = page.get_pixmap()
+            img = Image.frombytes("RGB", (pix.width, pix.height), pix.samples)
+            images.append(img)
     return images
 
 
