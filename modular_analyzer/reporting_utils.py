@@ -146,8 +146,9 @@ def export_logs_to_html(log_file_path, output_html_path):
 def auto_export_logs():
     try:
         log_file = "error.log"
-        export_logs_to_csv(log_file, "log_report.csv")
-        export_logs_to_html(log_file, "log_report.html")
+        if os.path.exists(log_file):
+            export_logs_to_csv(log_file, "log_report.csv")
+            export_logs_to_html(log_file, "log_report.html")
     except Exception as e:
         print(f"[auto_export_logs] Export failed: {e}")
 

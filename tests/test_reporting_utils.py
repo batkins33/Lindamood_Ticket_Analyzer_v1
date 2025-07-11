@@ -4,7 +4,7 @@ import types
 # Stub pandas so reporting_utils can be imported without the real dependency.
 sys.modules.setdefault("pandas", types.ModuleType("pandas"))
 
-from modular_analyzer.reporting_utils import export_logs_to_html
+from modular_analyzer.reporting_utils import export_logs_to_html, auto_export_logs
 
 def test_export_logs_to_html(tmp_path):
     log_file = tmp_path / "sample.log"
@@ -24,3 +24,11 @@ def test_export_logs_to_html(tmp_path):
     assert "Something suspicious" in html
     assert "Unstructured line" in html
     assert "Info message" not in html
+
+
+def test_auto_export_logs_no_file(tmp_path, monkeypatch):
+    """auto_export_logs should not raise if error.log is missing."""
+    monkeypatch.chdir(tmp_path)
+    # Ensure no error.log exists
+    assert not (tmp_path / "error.log").exists()
+    auto_export_logs()  # should run without exceptions
