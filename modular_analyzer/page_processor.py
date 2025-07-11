@@ -50,6 +50,7 @@ def process_page(task: PageTask):
     entry = {"Page": page_num}
     ticket_issue = ""
     thumbnail_log = []
+    issue_log = []
 
     def log_issue(issue_type: str, field: str):
         issue_log.append({
@@ -237,4 +238,5 @@ def process_page(task: PageTask):
         "ticket_issue": ticket_issue,
         "thumbnails": thumbnail_log,
         "timing": {"Page": page_num, "DurationSeconds": duration},
+        "issue_log": issue_log,
     }
