@@ -13,7 +13,7 @@ handwriting. Results are saved to CSV/Excel for further review.
 - PyMuPDF & pdf2image
 - Tesseract via `pytesseract`
 - ONNX Runtime
-- pandas, numpy, scikit-learn
+- pandas, numpy, scikit-learn==1.6.1
 
 See [`environment.yml`](environment.yml) for the list of required packages
 and environment setup instructions.
