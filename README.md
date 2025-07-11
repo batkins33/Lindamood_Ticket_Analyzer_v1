@@ -26,6 +26,7 @@ The analyzer provides:
 - ONNX-based handwriting recognition
 - Optional template matching for ticket numbers
 - Concurrent processing of pages using Python's multiprocessing
+- Automatic page orientation correction (Tesseract or Doctr)
 
 ## Usage
 1. Create and activate the Conda environment:

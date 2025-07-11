@@ -1,2 +1,3 @@
 ocr_backend: doctr
 use_onnx_fallback: true
+orientation_check: tesseract  # tesseract, doctr, or none
