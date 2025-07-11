@@ -1,3 +1,2 @@
-ocr_backend: easyocr
-gpu: false
-language: en
+ocr_backend: doctr
+use_onnx_fallback: true

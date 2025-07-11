@@ -2,9 +2,8 @@ import pytest
 
 modules_to_test = [
     "cv2",
-    "paddleocr",
     "onnxruntime",
-    "easyocr",
+    "doctr",
     "pytesseract",
     "numpy",
     "torch",

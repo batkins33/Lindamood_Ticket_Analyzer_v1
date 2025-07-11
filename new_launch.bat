@@ -1,8 +1,8 @@
 @echo off
 setlocal
 
-echo [🔧] Activating environment: analyzer_env
-call conda activate analyzer_env
+echo [🔧] Activating environment: doctr_env
+call conda activate doctr_env
 
 echo [ℹ️] Launching analyzer...
 python launch_analyzer.py
