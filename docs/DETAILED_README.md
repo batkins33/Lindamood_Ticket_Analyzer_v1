@@ -8,7 +8,7 @@ OCR/ICR engines to read printed text and handwriting, and includes template matc
 ## Features
 
 * **PDF to Image Conversion**: Converts each page of a PDF into PIL images.
-* **Printed Text OCR**: Uses PaddleOCR or EasyOCR (via PyTorch) for high-accuracy printed-text recognition.
+* **Printed Text OCR**: Uses DocTR for high-accuracy printed-text recognition.
 * **Handwriting Recognition (ICR)**: Integrates an ONNXRuntime-based model for handwriting extraction.
 * **Handwriting Detection**: Heuristic and deep-learning based methods to detect handwritten regions.
 * **Template Matching**: Locates known form elements using OpenCV template matching.
