@@ -29,11 +29,16 @@ The analyzer provides:
 - Automatic page orientation correction (Tesseract or Doctr)
 
 ## Usage
-1. Create and activate the Conda environment:
+1. Create and activate the Conda environment (recommended):
    ```bash
    conda env create -f environment.yml
    conda activate doctr_env
    ```
+   If you don't use Conda, install the requirements with:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
 2. Run the analyzer and choose a PDF when prompted:
    ```bash
    python launch_analyzer.py
